@@ -1,6 +1,18 @@
+/**
+ * User services are methods that deal with user information
+ * between the server code and the database.
+ * 
+ * User service methods should only be called from user controller.
+ */
 import { send_query, ERROR_DB } from "../db";
 
 export default class UserService {
+  /**
+   * Inserts new user information into database.
+   * user object must contain firstname and email fields.
+   * @param user 
+   * @returns user_id
+   */
   static async createUser(user) {
     try {
       const insertQuery = `

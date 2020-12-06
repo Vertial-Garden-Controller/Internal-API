@@ -6,7 +6,7 @@ import UserController from "../controllers/userController";
 router.get("/", function (req, res, next) {
   res.send("respond with a resource");
 });
-
+// user signup post method
 router.post("/signup", UserController.newUser);
 
-module.exports = router;
+export default router;
