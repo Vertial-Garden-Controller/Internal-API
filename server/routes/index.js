@@ -1,11 +1,11 @@
 // routes/index.js and users.js
-import express from "express";
-import { route } from "./userRoutes";
-var router = express.Router();
+import express from 'express'
+import { route } from './userRoutes'
+var router = express.Router()
 
 /* GET home page. */
 // router.get("/", function (req, res, next) {
 //   res.render("index", { title: "Express" });
 // });
 
-module.exports = router;
+module.exports = router

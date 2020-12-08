@@ -8,5 +8,6 @@ router.get("/", function (req, res, next) {
 });
 // user signup post method
 router.post("/signup", UserController.newUser);
+router.get("/:user_id", UserController.myInfo)
 
 export default router;
