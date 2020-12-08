@@ -42,7 +42,16 @@ export default class UserController {
     return res.status(201).json({ success: true, user_id: user_id })
   }
 
-  static async myInfo(req, res) {
+  /**
+   * Handles GET requets for user information by user_id.
+   * User_id provided must be greater than zero and be a valid number,
+   * otherwise status 400.
+   * Res contains success status and user information upon success.
+   * @param req
+   * @param res
+   * @returns res with json
+   */
+  static async getUserInfo(req, res) {
     const user_id = parseInt(req.params.user_id)
     if (user_id < 1 || isNaN(user_id)) {
       return res
@@ -55,7 +64,7 @@ export default class UserController {
       return res.status(500).json({
         success: false,
         error: user.error,
-        detail: user.detail
+        detail: user.detail,
       })
     }
 

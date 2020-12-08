@@ -42,6 +42,14 @@ export default class UserService {
     }
   }
 
+  /**
+   * Queries database for all information pertaining to a user by
+   * the provided user_id.  If the user_id does not exist in the database,
+   * an error is returned.  If the database returns too many users,
+   * the function will error as well.
+   * @param user_id
+   * @returns user
+   */
   static async getUserInfo(user_id) {
     try {
       const selectQuery = `
@@ -49,7 +57,9 @@ export default class UserService {
         WHERE user_id = $1;`
       const selectParams = [user_id]
       const { rows } = await send_query(selectQuery, selectParams)
-      return rows.length == 1 ? rows[0] : { error: 'Number of users returned is not 1.' }
+      return rows.length == 1
+        ? rows[0]
+        : { error: 'Number of users returned is not 1.' }
     } catch (err) {
       console.error(err.stack)
       return { error: ERROR_DB, detail: err.detail }
