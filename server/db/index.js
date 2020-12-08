@@ -13,7 +13,7 @@ const client = new Client({
 client.connect()
 
 // error status for database fail
-export const ERROR_DB = 'DATABASE ERROR'
+export const ERROR_DB = 'Database Error'
 // global function for querying database.
 export function send_query(text, values) {
   return client.query(text, values)

@@ -58,7 +58,10 @@ export default class UserService {
       const { rows } = await send_query(selectQuery, selectParams)
       return rows.length == 1
         ? rows[0]
-        : { error: 'Number of users returned is not 1.' }
+        : {
+            error: 'Database Error',
+            detail: `No user found with id: ${user_id}`,
+          }
     } catch (err) {
       console.error(err.stack)
       return { error: ERROR_DB, detail: err.detail }

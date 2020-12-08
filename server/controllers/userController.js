@@ -25,7 +25,8 @@ export default class UserController {
     if (!newUser.firstname || !newUser.email) {
       return res.status(400).json({
         success: false,
-        error: 'New user requires firstname and email',
+        error: 'Request Error',
+        detail: 'New user requires firstname and email',
       })
     }
 
@@ -56,7 +57,11 @@ export default class UserController {
     if (user_id < 1 || isNaN(user_id)) {
       return res
         .status(400)
-        .json({ success: false, error: 'User id provided is invalid' })
+        .json({
+          success: false,
+          error: 'Request Error',
+          detail: 'User id provided is invalid',
+        })
     }
 
     const user = await UserService.getUserInfo(user_id)
