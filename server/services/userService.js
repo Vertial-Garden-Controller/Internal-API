@@ -1,4 +1,3 @@
-import { query } from 'express'
 /**
  * User services are methods that deal with user information
  * between the server code and the database.
