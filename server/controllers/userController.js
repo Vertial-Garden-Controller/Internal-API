@@ -44,6 +44,40 @@ export default class UserController {
   }
 
   /**
+   * Controller takes an email and password from request body and
+   * calls the user service login function.
+   * Returns user_id if email and password match an existing user.
+   * @param req
+   * @param res
+   * @returns res with json
+   */
+  static async Login(req, res) {
+    const email = req.body.email
+    const password = req.body.password
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({
+          success: false,
+          error: 'Request Error',
+          detail: 'email and password are required body fields.',
+        })
+    }
+
+    const user_id = await UserService.Login(email, password)
+
+    if (user_id.error) {
+      return res.status(500).json({
+        success: false,
+        error: user_id.error,
+        detail: user_id.detail,
+      })
+    }
+
+    return res.status(200).json({ success: true, user_id: user_id })
+  }
+
+  /**
    * Handles GET requets for user information by user_id.
    * User_id provided must be greater than zero and be a valid number,
    * otherwise status 400.
@@ -55,13 +89,11 @@ export default class UserController {
   static async getUserInfo(req, res) {
     const user_id = parseInt(req.params.user_id)
     if (user_id < 1 || isNaN(user_id)) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          error: 'Request Error',
-          detail: 'User id provided is invalid',
-        })
+      return res.status(400).json({
+        success: false,
+        error: 'Request Error',
+        detail: 'User id provided is invalid',
+      })
     }
 
     const user = await UserService.getUserInfo(user_id)
