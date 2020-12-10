@@ -1,14 +1,13 @@
-import express from "express";
-var router = express.Router();
-import UserController from "../controllers/userController";
+import express from 'express'
+var router = express.Router()
+import UserController from '../controllers/userController'
 
 /* GET users listing. */
-router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
-});
 // signup user
-router.post("/signup", UserController.newUser);
+router.post('/signup', UserController.newUser)
+// login user
+router.post('/login', UserController.Login)
 // get user information
-router.get("/:user_id", UserController.getUserInfo)
+router.get('/:user_id', UserController.getUserInfo)
 
-export default router;
+export default router

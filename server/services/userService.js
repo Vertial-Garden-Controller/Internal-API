@@ -42,6 +42,34 @@ export default class UserService {
   }
 
   /**
+   * Queries the users table for a user with matching email and password.
+   * If a user returns, then the function returns the user_id of the
+   * corresponding user.
+   * @param email 
+   * @param password 
+   * @returns user_id
+   */
+  static async Login(email, password) {
+    try {
+      const selectQuery = `
+        SELECT user_id FROM users
+        WHERE email = $1
+        AND password = $2;`
+      const selectParams = [email, password]
+      const { rows } = await send_query(selectQuery, selectParams)
+      return rows.length == 1
+        ? rows[0].user_id
+        : {
+            error: 'Database Error',
+            detail: `No user found`,
+          }
+    } catch (err) {
+      console.error(err.stack)
+      return { error: ERROR_DB, detail: err.detail }
+    }
+  }
+
+  /**
    * Queries database for all information pertaining to a user by
    * the provided user_id.  If the user_id does not exist in the database,
    * an error is returned.  If the database returns too many users,
