@@ -22,11 +22,11 @@ export default class UserController {
     // request body contains user signup information
     const newUser = req.body
     // return 400 (bad request) if firstname or email is missing.
-    if (!newUser.firstname || !newUser.email) {
+    if (!newUser.firstname || !newUser.email || !newUser.password) {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
-        detail: 'New user requires firstname and email',
+        detail: 'New user requires firstname, email, and password',
       })
     }
 
@@ -52,6 +52,7 @@ export default class UserController {
    * @returns res with json
    */
   static async Login(req, res) {
+    console.log(req.body)
     const email = req.body.email
     const password = req.body.password
     if (!email || !password) {

@@ -6,7 +6,7 @@ import UserController from '../controllers/userController'
 // signup user
 router.post('/signup', UserController.newUser)
 // login user
-router.get('/login', UserController.Login)
+router.post('/login', UserController.Login)
 // get user information
 router.get('/:user_id', UserController.getUserInfo)
 
