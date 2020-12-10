@@ -19,6 +19,7 @@ export default class UserController {
    * @returns res with json
    */
   static async newUser(req, res) {
+    console.log(req.body)
     // request body contains user signup information
     const newUser = req.body
     // return 400 (bad request) if firstname or email is missing.
@@ -88,6 +89,7 @@ export default class UserController {
    * @returns res with json
    */
   static async getUserInfo(req, res) {
+    console.log(req.params)
     const user_id = parseInt(req.params.user_id)
     if (user_id < 1 || isNaN(user_id)) {
       return res.status(400).json({
