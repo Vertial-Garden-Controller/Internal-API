@@ -26,13 +26,11 @@ export default class GardenController {
       isNaN(garden.coords.y) ||
       garden.coords.y < 0
     ) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          error: 'Request Error',
-          detail: 'Invalid coordinates.',
-        })
+      return res.status(400).json({
+        success: false,
+        error: 'Request Error',
+        detail: 'Invalid coordinates.',
+      })
     }
     // insert garden into database with create new garden service
     const garden_id = await gardenService.createNewGarden(garden)
@@ -69,7 +67,7 @@ export default class GardenController {
     }
 
     // TODO: service for getGardenByID
-    const garden = await GardenService.getGardenByID(garden_id)
+    // const garden = await GardenService.getGardenByID(garden_id)
     if (garden.error) {
       return res.status(500).json({
         success: false,
@@ -144,18 +142,33 @@ export default class GardenController {
 
     // request body contains garden signup information
     const newGarden = req.body.garden
-    // return 400 (bad request) if firstname or email is missing.
+    // Check for valid user id
+    if (garden.user_id < 0 || isNaN(garden.user_id)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Request Error',
+        detail: 'Invalid user id provided.',
+      })
+    }
+    // check for valid zip code
+    if (garden.zip_code.length != 5 || isNaN(garden.zip_code)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Request Error',
+        detail: 'Invalid zip code provided.',
+      })
+    }
+    // check for valid coords
     if (
-      !newGarden.start_time ||
-      !newGarden.end_time ||
-      !newGarden.days_active ||
-      !newGarden.garden_id
+      isNaN(garden.coords.x) ||
+      garden.coords.x < 0 ||
+      isNaN(garden.coords.y) ||
+      garden.coords.y < 0
     ) {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
-        detail:
-          'New garden requires days_active, start_time, and end_time, and garden_id',
+        detail: 'Invalid coordinates.',
       })
     }
 

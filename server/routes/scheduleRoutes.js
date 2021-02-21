@@ -3,14 +3,14 @@ var router = express.Router()
 import ScheduleController from '../controllers/scheduleController.js'
 
 // create new schedule
-router.post('/schedule', ScheduleController.newSchedule)
-// get user information
+router.post('/', ScheduleController.newSchedule)
+// get one schedule by schedule_id
 router.get('/:schedule_id', ScheduleController.getScheduleByID)
-// login user
-router.post('/schedule/all', ScheduleController.getAllSchedules)
+// get all schedules associated with a user
+router.post('/user/:user_id', ScheduleController.getAllSchedules)
 // update schedule
 router.put('/:schedule_id', ScheduleController.updateSchedule)
 // delete schedule by id
-router.delete('/:schedule_id', ScheduleController.deleteSchedule)
+router.delete('/scedule/:schedule_id', ScheduleController.deleteSchedule)
 
 export default router
