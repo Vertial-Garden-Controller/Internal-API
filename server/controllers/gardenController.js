@@ -144,19 +144,36 @@ export default class GardenController {
 
     // request body contains garden signup information
     const newGarden = req.body.garden
-    // return 400 (bad request) if firstname or email is missing.
-    if (
-      !newGarden.start_time ||
-      !newGarden.end_time ||
-      !newGarden.days_active ||
-      !newGarden.garden_id
-    ) {
+    // Check for valid user id
+    if (garden.user_id < 0 || isNaN(garden.user_id)) {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
-        detail:
-          'New garden requires days_active, start_time, and end_time, and garden_id',
+        detail: 'Invalid user id provided.',
       })
+    }
+    // check for valid zip code
+    if (garden.zip_code.length != 5 || isNaN(garden.zip_code)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Request Error',
+        detail: 'Invalid zip code provided.',
+      })
+    }
+    // check for valid coords
+    if (
+      isNaN(garden.coords.x) ||
+      garden.coords.x < 0 ||
+      isNaN(garden.coords.y) ||
+      garden.coords.y < 0
+    ) {
+      return res
+        .status(400)
+        .json({
+          success: false,
+          error: 'Request Error',
+          detail: 'Invalid coordinates.',
+        })
     }
 
     // Create update old garden to existing garden

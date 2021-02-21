@@ -4,9 +4,9 @@ import ScheduleController from '../controllers/scheduleController.js'
 
 // create new schedule
 router.post('/schedule', ScheduleController.newSchedule)
-// get user information
+// get one schedule by schedule_id
 router.get('/:schedule_id', ScheduleController.getScheduleByID)
-// login user
+// get all schedules associated with a user
 router.post('/schedule/all', ScheduleController.getAllSchedules)
 // update schedule
 router.put('/:schedule_id', ScheduleController.updateSchedule)
