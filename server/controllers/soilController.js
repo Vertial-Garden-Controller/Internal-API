@@ -7,7 +7,7 @@
  * User controller functions should only be called from /user/ routes
  */
 
-import SoilService from '../services/SoilService'
+// import SoilService from '../services/SoilService'
 
 export default class SoilController {
   /**
@@ -35,7 +35,7 @@ export default class SoilController {
     }
 
     // TODO: service for getSoilInfo
-    const soil_data = await SoilService.getSoilInfo(garden_id)
+    // const soil_data = await SoilService.getSoilInfo(garden_id)
     if (soil_data.error) {
       return res.status(500).json({
         success: false,

@@ -7,7 +7,7 @@
  * Plant controller functions should only be called from /plant/ routes
  */
 
-import PlantService from '../services/plantService'
+// import PlantService from '../services/plantService'
 
 export default class PlantController {
   /**
@@ -33,7 +33,7 @@ export default class PlantController {
 
     // call create plant service to insert plant information into database
     // TODO: service for newPlant
-    const plant_id = await PlantService.newPlant(newPlant)
+    // const plant_id = await PlantService.newPlant(newPlant)
     // check plantid for error field (db insert failed)
     if (plant_id.error || plant_id < 1) {
       return res.status(500).json({
@@ -67,7 +67,7 @@ export default class PlantController {
     }
 
     // TODO: service for getPlantByID
-    const plant = await PlantService.getPlantByID(plant_id)
+    // const plant = await PlantService.getPlantByID(plant_id)
     if (plant.error) {
       return res.status(500).json({
         success: false,
@@ -99,7 +99,7 @@ export default class PlantController {
     }
 
     // TODO: service for getAllPlants
-    const plants = await PlantService.getAllPlants(user_id)
+    // const plants = await PlantService.getAllPlants(user_id)
     if (plants.error) {
       return res.status(500).json({
         success: false,
@@ -130,7 +130,7 @@ export default class PlantController {
     }
 
     // check for existing plant to update
-    const existingPlant = await PlantService.getPlantByID(plant_id)
+    // const existingPlant = await PlantService.getPlantByID(plant_id)
     // if plant does not exist, return error.
     if (!existingPlant) {
       return res.status(400).json({
@@ -153,7 +153,7 @@ export default class PlantController {
 
     // Create update old plant to existing plant
     // TODO: service for updatePlant
-    const plant = await PlantService.updatePlant(plant_id, plant)
+    // const plant = await PlantService.updatePlant(plant_id, plant)
     if (plant.error) {
       return res.status(500).json({
         success: false,
@@ -183,7 +183,7 @@ export default class PlantController {
     }
 
     // check for existing plant to update
-    const existingPlant = await PlantService.getPlantByID(plant_id)
+    // const existingPlant = await PlantService.getPlantByID(plant_id)
     // if plant does not exist, return error.
     if (!existingPlant) {
       return res.status(400).json({
@@ -194,7 +194,7 @@ export default class PlantController {
     }
 
     // TODO: service for deletePlant
-    const plant = await PlantService.deletePlant(plant_id)
+    // const plant = await PlantService.deletePlant(plant_id)
     if (plant.error) {
       return res.status(500).json({
         success: false,

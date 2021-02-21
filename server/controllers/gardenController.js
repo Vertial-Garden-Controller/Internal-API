@@ -67,7 +67,7 @@ export default class GardenController {
     }
 
     // TODO: service for getGardenByID
-    const garden = await GardenService.getGardenByID(garden_id)
+    // const garden = await GardenService.getGardenByID(garden_id)
     if (garden.error) {
       return res.status(500).json({
         success: false,
