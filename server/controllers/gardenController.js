@@ -26,13 +26,11 @@ export default class GardenController {
       isNaN(garden.coords.y) ||
       garden.coords.y < 0
     ) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          error: 'Request Error',
-          detail: 'Invalid coordinates.',
-        })
+      return res.status(400).json({
+        success: false,
+        error: 'Request Error',
+        detail: 'Invalid coordinates.',
+      })
     }
     // insert garden into database with create new garden service
     const garden_id = await gardenService.createNewGarden(garden)
@@ -167,13 +165,11 @@ export default class GardenController {
       isNaN(garden.coords.y) ||
       garden.coords.y < 0
     ) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          error: 'Request Error',
-          detail: 'Invalid coordinates.',
-        })
+      return res.status(400).json({
+        success: false,
+        error: 'Request Error',
+        detail: 'Invalid coordinates.',
+      })
     }
 
     // Create update old garden to existing garden

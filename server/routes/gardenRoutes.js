@@ -1,6 +1,6 @@
-import express from "express";
-var router = express.Router();
-import GardenController from "../controllers/gardenController";
+import express from 'express'
+var router = express.Router()
+import GardenController from '../controllers/gardenController'
 
 // create a new garden for a user
 router.post('/new', GardenController.createNewGarden)
@@ -13,4 +13,4 @@ router.post('/new', GardenController.updateGarden)
 // create a new garden for a user
 router.post('/new', GardenController.deleteGarden)
 
-export default router;
+export default router

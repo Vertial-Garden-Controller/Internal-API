@@ -27,8 +27,7 @@ export default class PlantController {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
-        detail:
-          'New plant requires count, type, and garden_id',
+        detail: 'New plant requires count, type, and garden_id',
       })
     }
 
@@ -148,8 +147,7 @@ export default class PlantController {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
-        detail:
-          'New plant requires count, type, and garden_id',
+        detail: 'New plant requires count, type, and garden_id',
       })
     }
 

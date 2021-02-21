@@ -55,13 +55,11 @@ export default class UserController {
     const email = req.body.email
     const password = req.body.password
     if (!email || !password) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          error: 'Request Error',
-          detail: 'email and password are required body fields.',
-        })
+      return res.status(400).json({
+        success: false,
+        error: 'Request Error',
+        detail: 'email and password are required body fields.',
+      })
     }
 
     const user_id = await UserService.Login(email, password)
