@@ -7,6 +7,8 @@
  * User controller functions should only be called from /user/ routes
  */
 
+import SoilService from "../services/soilService"
+
 // import SoilService from '../services/SoilService'
 
 export default class SoilController {
@@ -19,7 +21,7 @@ export default class SoilController {
    * @returns res with json
    */
   static async getSoilInfo(req, res) {
-    const garden_id = parseInt(req.query.garden_id)
+    const garden_id = parseInt(req.params.garden_id)
     if (garden_id < 1 || isNaN(garden_id)) {
       return res.status(400).json({
         success: false,
@@ -35,7 +37,7 @@ export default class SoilController {
     }
 
     // TODO: service for getSoilInfo
-    // const soil_data = await SoilService.getSoilInfo(garden_id)
+    const soil_data = await SoilService.getSoilInfo(garden_id, start_time, end_time)
     if (soil_data.error) {
       return res.status(500).json({
         success: false,
