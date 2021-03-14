@@ -11,6 +11,6 @@ router.get('/user/:user_id', ScheduleController.getAllSchedules)
 // update schedule
 router.put('/:schedule_id', ScheduleController.updateSchedule)
 // delete schedule by id
-router.delete('/scedule/:schedule_id', ScheduleController.deleteSchedule)
+router.delete('/:schedule_id', ScheduleController.deleteSchedule)
 
 export default router
