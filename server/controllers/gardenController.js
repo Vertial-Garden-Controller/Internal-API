@@ -1,4 +1,4 @@
-import gardenService from '../services/gardenService'
+import GardenService from '../services/gardenService'
 
 export default class GardenController {
   static async createNewGarden(req, res) {
@@ -12,7 +12,7 @@ export default class GardenController {
       })
     }
     // check for valid zip code
-    if (garden.zip_code.length != 5 || isNaN(garden.zip_code)) {
+    if (garden.zip_code.toString().length != 5 || isNaN(garden.zip_code)) {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
@@ -33,7 +33,7 @@ export default class GardenController {
       })
     }
     // insert garden into database with create new garden service
-    const garden_id = await gardenService.createNewGarden(garden)
+    const garden_id = await GardenService.createNewGarden(garden)
     // if insert fails, return error
     if (garden_id.error || garden_id < 1) {
       return res.status(500).json({
@@ -66,8 +66,7 @@ export default class GardenController {
       })
     }
 
-    // TODO: service for getGardenByID
-    // const garden = await GardenService.getGardenByID(garden_id)
+    const garden = await GardenService.getGardenByID(garden_id)
     if (garden.error) {
       return res.status(500).json({
         success: false,
@@ -98,7 +97,6 @@ export default class GardenController {
       })
     }
 
-    // TODO: service for getAllGardens
     const gardens = await GardenService.getAllGardens(user_id)
     if (gardens.error) {
       return res.status(500).json({
@@ -121,6 +119,7 @@ export default class GardenController {
    */
   static async updateGarden(req, res) {
     const garden_id = parseInt(req.params.garden_id)
+    const garden = req.body
     if (garden_id < 1 || isNaN(garden_id)) {
       return res.status(400).json({
         success: false,
@@ -141,7 +140,7 @@ export default class GardenController {
     }
 
     // request body contains garden signup information
-    const newGarden = req.body.garden
+    const newGarden = req.body
     // Check for valid user id
     if (garden.user_id < 0 || isNaN(garden.user_id)) {
       return res.status(400).json({
@@ -151,7 +150,7 @@ export default class GardenController {
       })
     }
     // check for valid zip code
-    if (garden.zip_code.length != 5 || isNaN(garden.zip_code)) {
+    if (garden.zip_code.toString().length != 5 || isNaN(garden.zip_code)) {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
@@ -173,17 +172,16 @@ export default class GardenController {
     }
 
     // Create update old garden to existing garden
-    // TODO: service for updateGarden
-    const garden = await GardenService.updateGarden(garden_id, garden)
-    if (garden.error) {
+    const updatedGarden = await GardenService.updateGarden(garden_id, garden)
+    if (updatedGarden.error) {
       return res.status(500).json({
         success: false,
-        error: garden.error,
-        detail: garden.detail,
+        error: updatedGarden.error,
+        detail: updatedGarden.detail,
       })
     }
 
-    return res.status(200).json({ success: true, garden: garden })
+    return res.status(200).json({ success: true, garden: updatedGarden })
   }
 
   /**
@@ -214,7 +212,6 @@ export default class GardenController {
       })
     }
 
-    // TODO: service for deleteGarden
     const garden = await GardenService.deleteGarden(garden_id)
     if (garden.error) {
       return res.status(500).json({
@@ -224,6 +221,6 @@ export default class GardenController {
       })
     }
 
-    return res.status(200).json({ success: true })
+    return res.status(200).json({ success: true, garden_id:garden.garden_id })
   }
 }

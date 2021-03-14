@@ -1,6 +1,6 @@
 import { send_query, ERROR_DB } from '../db/index'
 
-export default class gardenService {
+export default class GardenService {
   static async createNewGarden(garden) {
     try {
       const insertQuery = `
@@ -20,7 +20,85 @@ export default class gardenService {
       const { rows } = await send_query(insertQuery, insertParams)
       return rows.length == 1
         ? rows[0].garden_id
+        : { error: ERROR_DB, detail: 'Database error creating new garden.' }
+    } catch (err) {
+      console.error(err.stack)
+      return { error: ERROR_DB, detail: err.detail }
+    }
+  }
+
+  static async getGardenByID(garden_id) {
+    try {
+      const insertQuery = `
+        SELECT * FROM gardens
+        WHERE garden_id = $1`
+      const insertParams = [
+        garden_id
+      ]
+      const { rows } = await send_query(insertQuery, insertParams)
+      return rows.length == 1
+        ? rows[0]
         : { error: ERROR_DB, detail: 'Could not return requested garden.' }
+    } catch (err) {
+      console.error(err.stack)
+      return { error: ERROR_DB, detail: err.detail }
+    }
+  }
+
+  static async getAllGardens(user_id) {
+    try {
+      const insertQuery = `
+        SELECT * FROM gardens
+        WHERE user_id = $1`
+      const insertParams = [
+        user_id
+      ]
+      const { rows } = await send_query(insertQuery, insertParams)
+      return rows
+    } catch (err) {
+      console.error(err.stack)
+      return { error: ERROR_DB, detail: err.detail }
+    }
+  }
+
+  static async updateGarden(garden_id, garden) {
+    try {
+      const insertQuery = `
+        UPDATE gardens
+        SET  
+          user_id = $1,
+          coords = ($2, $3),
+          zip_code = $4,
+          last_modified = $5
+        WHERE garden_id = $6
+        RETURNING garden_id;`
+      const insertParams = [
+        garden.user_id,
+        garden.coords.x,
+        garden.coords.y,
+        garden.zip_code,
+        new Date().toISOString(),
+        garden_id
+      ]
+      const { rows } = await send_query(insertQuery, insertParams)
+      return rows
+    } catch (err) {
+      console.error(err.stack)
+      return { error: ERROR_DB, detail: err.detail }
+    }
+  }
+
+  static async deleteGarden(garden_id) {
+    try {
+      const insertQuery = `
+        DELETE FROM gardens
+        WHERE garden_id = $1
+        RETURNING garden_id;`
+      const insertParams = [
+        garden_id
+      ]
+      const { rows } = await send_query(insertQuery, insertParams)
+      return rows[0]
     } catch (err) {
       console.error(err.stack)
       return { error: ERROR_DB, detail: err.detail }
