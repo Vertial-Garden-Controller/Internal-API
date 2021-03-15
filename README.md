@@ -1,2 +1,3 @@
 # Internal-API
-Code for developing the API of the UI
+Code that handles the API.
+API is responsible for all interactions between the application and the database.
