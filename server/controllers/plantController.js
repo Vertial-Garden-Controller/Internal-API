@@ -7,6 +7,8 @@
  * Plant controller functions should only be called from /plant/ routes
  */
 
+import PlantService from "../services/plantService"
+
 // import PlantService from '../services/plantService'
 
 export default class PlantController {
@@ -33,9 +35,9 @@ export default class PlantController {
 
     // call create plant service to insert plant information into database
     // TODO: service for newPlant
-    // const plant_id = await PlantService.newPlant(newPlant)
+    const error = await PlantService.createNewPlant(newPlant)
     // check plantid for error field (db insert failed)
-    if (plant_id.error || plant_id < 1) {
+    if (error) {
       return res.status(500).json({
         success: false,
         error: plant_id.error,
@@ -44,7 +46,7 @@ export default class PlantController {
     }
 
     // otherwise return plant id with success :)
-    return res.status(201).json({ success: true, plant_id: plant_id })
+    return res.status(201).json({ success: true })
   }
 
   /**
@@ -57,8 +59,16 @@ export default class PlantController {
    * @returns res with json
    */
   static async getPlantByID(req, res) {
-    const plant_id = parseInt(req.params.plant_id)
-    if (plant_id < 1 || isNaN(plant_id)) {
+    const garden_id = parseInt(req.query.garden_id)
+    if (garden_id < 1 || isNaN(garden_id)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Request Error',
+        detail: 'Plant id provided is invalid',
+      })
+    }
+    const type = parseInt(req.query.type)
+    if (type < 1 || isNaN(type)) {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
@@ -67,7 +77,7 @@ export default class PlantController {
     }
 
     // TODO: service for getPlantByID
-    // const plant = await PlantService.getPlantByID(plant_id)
+    const plant = await PlantService.getPlantByID(garden_id, type)
     if (plant.error) {
       return res.status(500).json({
         success: false,
@@ -76,7 +86,7 @@ export default class PlantController {
       })
     }
 
-    return res.status(200).json({ success: true, plant: plant })
+    return res.status(200).json({ success: true, count: plant.plant_count })
   }
 
   /**
@@ -99,7 +109,7 @@ export default class PlantController {
     }
 
     // TODO: service for getAllPlants
-    // const plants = await PlantService.getAllPlants(user_id)
+    const plants = await PlantService.getAllPlants(user_id)
     if (plants.error) {
       return res.status(500).json({
         success: false,
@@ -120,8 +130,17 @@ export default class PlantController {
    * @returns res with json
    */
   static async updatePlant(req, res) {
-    const plant_id = parseInt(req.params.plant_id)
-    if (plant_id < 1 || isNaN(plant_id)) {
+    const garden_id = parseInt(req.query.garden_id)
+    if (garden_id < 1 || isNaN(garden_id)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Request Error',
+        detail: 'Plant id provided is invalid',
+      })
+    }
+    
+    const type = parseInt(req.query.type)
+    if (type < 1 || isNaN(type)) {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
@@ -130,7 +149,7 @@ export default class PlantController {
     }
 
     // check for existing plant to update
-    // const existingPlant = await PlantService.getPlantByID(plant_id)
+    const existingPlant = await PlantService.getPlantByID(garden_id, type)
     // if plant does not exist, return error.
     if (!existingPlant) {
       return res.status(400).json({
@@ -141,9 +160,9 @@ export default class PlantController {
     }
 
     // request body contains plant signup information
-    const newPlant = req.body.plant
+    const newPlant = req.body
     // return 400 (bad request) if plant information is missing.
-    if (!newPlant.garden_id || !newPlant.count || !newPlant.type) {
+    if (!newPlant.count || !newPlant.type) {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
@@ -153,7 +172,7 @@ export default class PlantController {
 
     // Create update old plant to existing plant
     // TODO: service for updatePlant
-    // const plant = await PlantService.updatePlant(plant_id, plant)
+    const plant = await PlantService.updatePlant(garden_id, type, newPlant)
     if (plant.error) {
       return res.status(500).json({
         success: false,
@@ -162,7 +181,7 @@ export default class PlantController {
       })
     }
 
-    return res.status(200).json({ success: true, plant: plant })
+    return res.status(200).json({ success: true })
   }
 
   /**
@@ -173,8 +192,17 @@ export default class PlantController {
    * @returns res with json
    */
   static async deletePlant(req, res) {
-    const plant_id = parseInt(req.params.plant_id)
-    if (plant_id < 1 || isNaN(plant_id)) {
+    const garden_id = parseInt(req.query.garden_id)
+    if (garden_id < 1 || isNaN(garden_id)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Request Error',
+        detail: 'Plant id provided is invalid',
+      })
+    }
+    
+    const type = parseInt(req.query.type)
+    if (type < 1 || isNaN(type)) {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
@@ -183,7 +211,7 @@ export default class PlantController {
     }
 
     // check for existing plant to update
-    // const existingPlant = await PlantService.getPlantByID(plant_id)
+    const existingPlant = await PlantService.getPlantByID(garden_id, type)
     // if plant does not exist, return error.
     if (!existingPlant) {
       return res.status(400).json({
@@ -194,7 +222,7 @@ export default class PlantController {
     }
 
     // TODO: service for deletePlant
-    // const plant = await PlantService.deletePlant(plant_id)
+    const plant = await PlantService.deletePlant(garden_id, type)
     if (plant.error) {
       return res.status(500).json({
         success: false,
