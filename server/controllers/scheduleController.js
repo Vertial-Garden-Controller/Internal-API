@@ -7,12 +7,14 @@
  * Schedule controller functions should only be called from /schedule/ routes
  */
 
+import ScheduleService from "../services/scheduleService"
+
 // import ScheduleService from '../services/scheduleService'
 
 export default class ScheduleController {
   /**
    * Handles POST request to create a new schedule.
-   * days_active, start_time, and end_time, and garden_id
+   * days, start_time, and end_time, and garden_id
    * are required fields to signup.
    * Calls schedule service to insert data into database
    * @param req
@@ -26,20 +28,19 @@ export default class ScheduleController {
     if (
       !newSchedule.start_time ||
       !newSchedule.end_time ||
-      !newSchedule.days_active ||
+      // !newSchedule.days ||
       !newSchedule.garden_id
     ) {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
         detail:
-          'New schedule requires days_active, start_time, and end_time, and garden_id',
+          'New schedule requires days, start_time, and end_time, and garden_id',
       })
     }
 
     // call create schedule service to insert schedule information into database
-    // TODO: service for newSchedule
-    // const schedule_id = await ScheduleService.newSchedule(newSchedule)
+    const schedule_id = await ScheduleService.createNewSchedule(newSchedule)
     // check scheduleid for error field (db insert failed)
     if (schedule_id.error || schedule_id < 1) {
       return res.status(500).json({
@@ -73,7 +74,7 @@ export default class ScheduleController {
     }
 
     // TODO: service for getScheduleByID
-    // const schedule = await ScheduleService.getScheduleByID(schedule_id)
+    const schedule = await ScheduleService.getScheduleByID(schedule_id)
     if (schedule.error) {
       return res.status(500).json({
         success: false,
@@ -105,7 +106,7 @@ export default class ScheduleController {
     }
 
     // TODO: service for getAllSchedules
-    // const schedules = await ScheduleService.getAllSchedules(user_id)
+    const schedules = await ScheduleService.getAllSchedules(user_id)
     if (schedules.error) {
       return res.status(500).json({
         success: false,
@@ -136,7 +137,7 @@ export default class ScheduleController {
     }
 
     // check for existing schedule to update
-    // const existingSchedule = await ScheduleService.getScheduleByID(schedule_id)
+    const existingSchedule = await ScheduleService.getScheduleByID(schedule_id)
     // if schedule does not exist, return error.
     if (!existingSchedule) {
       return res.status(400).json({
@@ -147,25 +148,25 @@ export default class ScheduleController {
     }
 
     // request body contains schedule signup information
-    const newSchedule = req.body.schedule
+    const newSchedule = req.body
     // return 400 (bad request) if firstname or email is missing.
     if (
       !newSchedule.start_time ||
       !newSchedule.end_time ||
-      !newSchedule.days_active ||
+      !newSchedule.days ||
       !newSchedule.garden_id
     ) {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
         detail:
-          'New schedule requires days_active, start_time, and end_time, and garden_id',
+          'New schedule requires days, start_time, and end_time, and garden_id',
       })
     }
 
     // Create update old schedule to existing schedule
     // TODO: service for updateSchedule
-    // const schedule = await ScheduleService.updateSchedule(schedule_id, schedule)
+    const schedule = await ScheduleService.updateSchedule(schedule_id, newSchedule)
     if (schedule.error) {
       return res.status(500).json({
         success: false,
@@ -195,7 +196,7 @@ export default class ScheduleController {
     }
 
     // check for existing schedule to update
-    // const existingSchedule = await ScheduleService.getScheduleByID(schedule_id)
+    const existingSchedule = await ScheduleService.getScheduleByID(schedule_id)
     // if schedule does not exist, return error.
     if (!existingSchedule) {
       return res.status(400).json({
@@ -206,7 +207,7 @@ export default class ScheduleController {
     }
 
     // TODO: service for deleteSchedule
-    // const schedule = await ScheduleService.deleteSchedule(schedule_id)
+    const schedule = await ScheduleService.deleteSchedule(schedule_id)
     if (schedule.error) {
       return res.status(500).json({
         success: false,
