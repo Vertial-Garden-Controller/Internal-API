@@ -59,7 +59,7 @@ export default class PlantController {
    * @returns res with json
    */
   static async getPlantByID(req, res) {
-    const garden_id = parseInt(req.query.garden_id)
+    const garden_id = parseInt(req.params.garden_id)
     if (garden_id < 1 || isNaN(garden_id)) {
       return res.status(400).json({
         success: false,
@@ -99,17 +99,17 @@ export default class PlantController {
    * @returns res with json
    */
   static async getAllPlants(req, res) {
-    const user_id = parseInt(req.params.user_id)
-    if (user_id < 1 || isNaN(user_id)) {
+    const email = parseInt(req.query.email)
+    if (email.length() < 1) {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
-        detail: 'User id provided is invalid',
+        detail: 'Email address provided is invalid',
       })
     }
 
     // TODO: service for getAllPlants
-    const plants = await PlantService.getAllPlants(user_id)
+    const plants = await PlantService.getAllPlants(email)
     if (plants.error) {
       return res.status(500).json({
         success: false,
@@ -130,7 +130,7 @@ export default class PlantController {
    * @returns res with json
    */
   static async updatePlant(req, res) {
-    const garden_id = parseInt(req.query.garden_id)
+    const garden_id = parseInt(req.params.garden_id)
     if (garden_id < 1 || isNaN(garden_id)) {
       return res.status(400).json({
         success: false,
@@ -138,7 +138,7 @@ export default class PlantController {
         detail: 'Plant id provided is invalid',
       })
     }
-    
+
     const type = parseInt(req.query.type)
     if (type < 1 || isNaN(type)) {
       return res.status(400).json({
@@ -192,7 +192,7 @@ export default class PlantController {
    * @returns res with json
    */
   static async deletePlant(req, res) {
-    const garden_id = parseInt(req.query.garden_id)
+    const garden_id = parseInt(req.params.garden_id)
     if (garden_id < 1 || isNaN(garden_id)) {
       return res.status(400).json({
         success: false,
@@ -200,7 +200,7 @@ export default class PlantController {
         detail: 'Plant id provided is invalid',
       })
     }
-    
+
     const type = parseInt(req.query.type)
     if (type < 1 || isNaN(type)) {
       return res.status(400).json({

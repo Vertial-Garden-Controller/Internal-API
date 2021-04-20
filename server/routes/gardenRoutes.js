@@ -7,7 +7,7 @@ router.post('/', GardenController.createNewGarden)
 // create a new garden for a user
 router.get('/:garden_id', GardenController.getGardenByID)
 // create a new garden for a user
-router.get('/user/:user_id', GardenController.getAllGardens)
+router.get('/user/', GardenController.getAllGardens)
 // create a new garden for a user
 router.put('/:garden_id', GardenController.updateGarden)
 // create a new garden for a user

@@ -7,7 +7,7 @@ router.post('/', ScheduleController.newSchedule)
 // get one schedule by schedule_id
 router.get('/:schedule_id', ScheduleController.getScheduleByID)
 // get all schedules associated with a user
-router.get('/user/:user_id', ScheduleController.getAllSchedules)
+router.get('/user/', ScheduleController.getAllSchedules)
 // update schedule
 router.put('/:schedule_id', ScheduleController.updateSchedule)
 // delete schedule by id

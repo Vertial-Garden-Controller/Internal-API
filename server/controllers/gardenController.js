@@ -88,16 +88,16 @@ export default class GardenController {
    * @returns res with json
    */
   static async getAllGardens(req, res) {
-    const user_id = parseInt(req.params.user_id)
-    if (user_id < 1 || isNaN(user_id)) {
+    const email = parseInt(req.query.email)
+    if (email.length() < 1) {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
-        detail: 'User id provided is invalid',
+        detail: 'Email address provided is invalid',
       })
     }
 
-    const gardens = await GardenService.getAllGardens(user_id)
+    const gardens = await GardenService.getAllGardens(email)
     if (gardens.error) {
       return res.status(500).json({
         success: false,

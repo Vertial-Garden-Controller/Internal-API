@@ -5,12 +5,12 @@ import PlantController from '../controllers/plantController'
 // add new plant to garden
 router.post('/', PlantController.newPlant)
 // get a plant by its ID
-router.get('/', PlantController.getPlantByID)
+router.get('/:plant_id', PlantController.getPlantByID)
 // get all plants in a garden
-router.get('/user/:user_id', PlantController.getAllPlants)
+router.get('/user/', PlantController.getAllPlants)
 // update existing plant information
-router.put('/', PlantController.updatePlant)
+router.put('/:plant_id', PlantController.updatePlant)
 // virtual roundup (delete plant)
-router.delete('/', PlantController.deletePlant)
+router.delete('/:plant_id', PlantController.deletePlant)
 
 export default router

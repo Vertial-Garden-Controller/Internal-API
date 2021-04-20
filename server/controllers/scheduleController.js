@@ -96,17 +96,17 @@ export default class ScheduleController {
    * @returns res with json
    */
   static async getAllSchedules(req, res) {
-    const user_id = parseInt(req.params.user_id)
-    if (user_id < 1 || isNaN(user_id)) {
+    const email = parseInt(req.query.email)
+    if (email.length() < 1) {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
-        detail: 'User id provided is invalid',
+        detail: 'Email provided is invalid',
       })
     }
 
     // TODO: service for getAllSchedules
-    const schedules = await ScheduleService.getAllSchedules(user_id)
+    const schedules = await ScheduleService.getAllSchedules(email)
     if (schedules.error) {
       return res.status(500).json({
         success: false,

@@ -45,13 +45,13 @@ export default class GardenService {
     }
   }
 
-  static async getAllGardens(user_id) {
+  static async getAllGardens(email) {
     try {
       const insertQuery = `
         SELECT * FROM gardens
-        WHERE user_id = $1`
+        WHERE email = $1`
       const insertParams = [
-        user_id
+        email
       ]
       const { rows } = await send_query(insertQuery, insertParams)
       return rows

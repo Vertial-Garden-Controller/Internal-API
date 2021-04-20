@@ -21,7 +21,7 @@ export default class SoilController {
    * @returns res with json
    */
   static async getSoilInfo(req, res) {
-    const garden_id = parseInt(req.params.garden_id)
+    const garden_id = parseInt(req.query.garden_id)
     if (garden_id < 1 || isNaN(garden_id)) {
       return res.status(400).json({
         success: false,

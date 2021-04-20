@@ -46,7 +46,7 @@ export default class PlantService {
     }
   }
 
-  static async getAllPlants(user_id) {
+  static async getAllPlants(email) {
     try {
       const insertQuery = `
       SELECT plant_count,
@@ -56,9 +56,9 @@ export default class PlantService {
       plants.last_modified
       FROM plants, gardens
       WHERE gardens.garden_id = plants.garden_id
-      AND user_id = $1;`
+      AND email = $1;`
       const insertParams = [
-        user_id
+        email
       ]
       const { rows } = await send_query(insertQuery, insertParams)
       return rows

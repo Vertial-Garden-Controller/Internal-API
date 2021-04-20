@@ -62,14 +62,14 @@ export default class ScheduleService {
     }
   }
 
-  static async getAllSchedules(user_id) {
+  static async getAllSchedules(email) {
     try {
       const insertQuery = `
         SELECT * FROM rules, gardens
         WHERE gardens.garden_id = rules.garden_id
-        AND user_id = $1;`
+        AND email = $1;`
       const insertParams = [
-        user_id
+        email
       ]
       const { rows } = await send_query(insertQuery, insertParams)
       return rows
