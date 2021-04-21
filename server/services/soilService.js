@@ -5,7 +5,7 @@ export default class SoilService {
     if(!start_time || !end_time) {
       try {
         const insertQuery = `
-          SELECT * FROM soil_data
+          SELECT * FROM sensor_data
           WHERE garden_id = $1`
         const insertParams = [
           garden_id
@@ -19,7 +19,7 @@ export default class SoilService {
     } else {
       try {
         const insertQuery = `
-          SELECT * FROM soil_data
+          SELECT * FROM sensor_data
           WHERE garden_id = $1
           AND date_created > $2
           AND date_created < $3`
