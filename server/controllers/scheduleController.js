@@ -97,7 +97,7 @@ export default class ScheduleController {
    */
   static async getAllSchedules(req, res) {
     const email = parseInt(req.query.email)
-    if (email.length() < 1) {
+    if (email.length < 1) {
       return res.status(400).json({
         success: false,
         error: 'Request Error',

@@ -5,14 +5,14 @@ export default class GardenService {
     try {
       const insertQuery = `
         INSERT INTO gardens (
-          user_id,
+          email,
           coords,
           zip_code
         ) VALUES (
           $1, ($2, $3), $4
         ) RETURNING garden_id;`
       const insertParams = [
-        garden.user_id,
+        garden.email,
         garden.coords.x,
         garden.coords.y,
         garden.zip_code,
@@ -66,14 +66,14 @@ export default class GardenService {
       const insertQuery = `
         UPDATE gardens
         SET  
-          user_id = $1,
+          email = $1,
           coords = ($2, $3),
           zip_code = $4,
           last_modified = $5
         WHERE garden_id = $6
         RETURNING garden_id;`
       const insertParams = [
-        garden.user_id,
+        garden.email,
         garden.coords.x,
         garden.coords.y,
         garden.zip_code,

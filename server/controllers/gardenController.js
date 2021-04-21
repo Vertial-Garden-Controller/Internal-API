@@ -4,11 +4,11 @@ export default class GardenController {
   static async createNewGarden(req, res) {
     const garden = req.body
     // Check for valid user id
-    if (garden.user_id < 0 || isNaN(garden.user_id)) {
+    if (garden.email.length <= 0) {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
-        detail: 'Invalid user id provided.',
+        detail: 'Invalid email provided.',
       })
     }
     // check for valid zip code
@@ -89,7 +89,7 @@ export default class GardenController {
    */
   static async getAllGardens(req, res) {
     const email = parseInt(req.query.email)
-    if (email.length() < 1) {
+    if (email.length < 1) {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
@@ -141,12 +141,12 @@ export default class GardenController {
 
     // request body contains garden signup information
     const newGarden = req.body
-    // Check for valid user id
-    if (garden.user_id < 0 || isNaN(garden.user_id)) {
+    // Check for valid email
+    if (garden.email.length <= 0) {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
-        detail: 'Invalid user id provided.',
+        detail: 'Invalid email provided.',
       })
     }
     // check for valid zip code

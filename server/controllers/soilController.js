@@ -37,15 +37,15 @@ export default class SoilController {
     }
 
     // TODO: service for getSoilInfo
-    const soil_data = await SoilService.getSoilInfo(garden_id, start_time, end_time)
-    if (soil_data.error) {
+    const sensor_data = await SoilService.getSoilInfo(garden_id, start_time, end_time)
+    if (sensor_data.error) {
       return res.status(500).json({
         success: false,
-        error: soil_data.error,
-        detail: soil_data.detail,
+        error: sensor_data.error,
+        detail: sensor_data.detail,
       })
     }
 
-    return res.status(200).json({ success: true, soil_data: soil_data })
+    return res.status(200).json({ success: true, sensor_data: sensor_data })
   }
 }
