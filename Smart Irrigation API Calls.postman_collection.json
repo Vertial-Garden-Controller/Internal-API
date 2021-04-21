@@ -1,0 +1,597 @@
+{
+	"info": {
+		"_postman_id": "a277b1e6-804e-4a5c-b015-cdd9df5dfd55",
+		"name": "Smart Irrigation API Calls",
+		"description": "# Introduction\nManages information related to users' gardens\n\n# Overview\nThings that the developers should know about\n\n# Authentication\nWhat is the preferred way of using the API?\n\n# Error Codes\nWhat errors and status codes can a user expect?\n\n# Rate limit\nIs there a limit to the number of requests an user can send?",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/garden - new garden",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"jbarringer1999@gmail.com\",\r\n    \"zip_code\": 97031,\r\n    \"coords\": {\r\n        \"x\": 48.8761,\r\n        \"y\": 78.8765\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5001/garden",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"garden"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/garden - get garden by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5001/garden/:garden_id",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"garden",
+						":garden_id"
+					],
+					"variable": [
+						{
+							"key": "garden_id",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/garden - get gardens by user id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5001/garden/user/:user_id",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"garden",
+						"user",
+						":user_id"
+					],
+					"variable": [
+						{
+							"key": "user_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/garden - update garden",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\": 1,\r\n    \"zip_code\": 99331,\r\n    \"coords\": {\r\n        \"x\": 1,\r\n        \"y\": 2\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5001/garden/:garden_id",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"garden",
+						":garden_id"
+					],
+					"variable": [
+						{
+							"key": "garden_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/garden - delete garden",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5001/garden/:garden_id",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"garden",
+						":garden_id"
+					],
+					"variable": [
+						{
+							"key": "garden_id",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/plant - new plant",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"garden_id\": 1,\r\n    \"type\": 1,\r\n    \"count\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5001/plant",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"plant"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/plant - get plant by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5001/plant/?garden_id=1&type=1",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"plant",
+						""
+					],
+					"query": [
+						{
+							"key": "garden_id",
+							"value": "1"
+						},
+						{
+							"key": "type",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/plant - get plants by user id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5001/plant/user/:user_id",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"plant",
+						"user",
+						":user_id"
+					],
+					"variable": [
+						{
+							"key": "user_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/plant - update plant",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": 1,\r\n    \"count\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5001/plant/?garden_id=1&type=1",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"plant",
+						""
+					],
+					"query": [
+						{
+							"key": "garden_id",
+							"value": "1"
+						},
+						{
+							"key": "type",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/plant - delete plant",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5001/plant/?garden_id=1&type=1",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"plant",
+						""
+					],
+					"query": [
+						{
+							"key": "garden_id",
+							"value": "1"
+						},
+						{
+							"key": "type",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/schedule - new schedule",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"start_time\": \"08:00:00\",\r\n    \"end_time\": \"13:30:00\",\r\n    \"garden_id\": 1,\r\n    \"days\": {\r\n        \"mon\": true,\r\n        \"tue\": true,\r\n        \"wed\": true,\r\n        \"thu\": true,\r\n        \"fri\": false,\r\n        \"sat\": false,\r\n        \"sun\": false\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5001/schedule",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"schedule"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/schedule - get schedule by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5001/schedule/:schedule_id",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"schedule",
+						":schedule_id"
+					],
+					"variable": [
+						{
+							"key": "schedule_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/schedule - get schedule by user id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5001/schedule/user/:user_id",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"schedule",
+						"user",
+						":user_id"
+					],
+					"variable": [
+						{
+							"key": "user_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/schedule - update schedule",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"start_time\": \"00:00:00\",\r\n    \"end_time\": \"13:30:00\",\r\n    \"garden_id\": 1,\r\n    \"days\": {\r\n        \"mon\": false,\r\n        \"tue\": false,\r\n        \"wed\": false,\r\n        \"thu\": false,\r\n        \"fri\": false,\r\n        \"sat\": false,\r\n        \"sun\": false\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5001/schedule/:schedule_id",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"schedule",
+						":schedule_id"
+					],
+					"variable": [
+						{
+							"key": "schedule_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/schedule - delete schedule",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5001/schedule/:schedule_id",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"schedule",
+						":schedule_id"
+					],
+					"variable": [
+						{
+							"key": "schedule_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/soil - get sensor info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5001/soil/?garden_id=1",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"soil",
+						""
+					],
+					"query": [
+						{
+							"key": "start_time",
+							"value": "\"2020-01-01\"",
+							"disabled": true
+						},
+						{
+							"key": "end_time",
+							"value": "\"2022-01-01\"",
+							"disabled": true
+						},
+						{
+							"key": "garden_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user - user signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstname\": \"Test\",\n    \"middlename\": \"\",\n    \"lastname\": \"User\",\n    \"email\": \"test_email@gmail.com\",\n    \"password\": \"password8\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5001/user/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"user",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user - get user info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5001/user/:user_id",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"user",
+						":user_id"
+					],
+					"variable": [
+						{
+							"key": "user_id",
+							"value": "1",
+							"type": "string"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user - user login",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"test@mail.com\",\n    \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5001/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/weather - weather api",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.openweathermap.org/data/2.5/onecall?lat=45.673&lon=-121.537&exclude=minutely&appid=75344df369e781e65c64dee59ea51b25&units=imperial",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openweathermap",
+						"org"
+					],
+					"path": [
+						"data",
+						"2.5",
+						"onecall"
+					],
+					"query": [
+						{
+							"key": "lat",
+							"value": "45.673"
+						},
+						{
+							"key": "lon",
+							"value": "-121.537"
+						},
+						{
+							"key": "exclude",
+							"value": "minutely"
+						},
+						{
+							"key": "appid",
+							"value": "75344df369e781e65c64dee59ea51b25"
+						},
+						{
+							"key": "units",
+							"value": "imperial"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
