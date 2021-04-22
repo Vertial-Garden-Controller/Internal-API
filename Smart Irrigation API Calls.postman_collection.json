@@ -592,6 +592,24 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "/plant_types - get all plant types",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5001/plant_types",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"plant_types"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

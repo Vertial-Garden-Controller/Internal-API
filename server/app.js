@@ -9,6 +9,7 @@ import gardenRouter from './routes/gardenRoutes'
 import scheduleRouter from './routes/scheduleRoutes'
 import plantRouter from './routes/plantRoutes'
 import soilRouter from './routes/soilRoutes'
+import plantTypeRouter from './routes/plantTypeRoutes'
 
 var app = express()
 app.use(logger('dev'))
@@ -22,4 +23,5 @@ app.use('/garden', gardenRouter)
 app.use('/schedule', scheduleRouter)
 app.use('/plant', plantRouter)
 app.use('/soil', soilRouter)
+app.use('/plant_types', plantTypeRouter)
 export default app
