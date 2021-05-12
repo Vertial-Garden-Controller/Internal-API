@@ -64,7 +64,8 @@ export default class ScheduleController {
    * @returns res with json
    */
   static async getScheduleByID(req, res) {
-    const schedule_id = parseInt(req.params.schedule_id)
+    const schedule_id = parseInt(req.query.schedule_id)
+    console.log('shuit')
     if (schedule_id < 1 || isNaN(schedule_id)) {
       return res.status(400).json({
         success: false,
@@ -96,7 +97,7 @@ export default class ScheduleController {
    * @returns res with json
    */
   static async getAllSchedules(req, res) {
-    const email = parseInt(req.query.email)
+    const email = req.query.email
     if (email.length < 1) {
       return res.status(400).json({
         success: false,
@@ -127,7 +128,7 @@ export default class ScheduleController {
    * @returns res with json
    */
   static async updateSchedule(req, res) {
-    const schedule_id = parseInt(req.params.schedule_id)
+    const schedule_id = parseInt(req.query.schedule_id)
     if (schedule_id < 1 || isNaN(schedule_id)) {
       return res.status(400).json({
         success: false,
@@ -186,7 +187,7 @@ export default class ScheduleController {
    * @returns res with json
    */
   static async deleteSchedule(req, res) {
-    const schedule_id = parseInt(req.params.schedule_id)
+    const schedule_id = parseInt(req.query.schedule_id)
     if (schedule_id < 1 || isNaN(schedule_id)) {
       return res.status(400).json({
         success: false,
