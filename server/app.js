@@ -10,9 +10,12 @@ import scheduleRouter from './routes/scheduleRoutes'
 import plantRouter from './routes/plantRoutes'
 import soilRouter from './routes/soilRoutes'
 import plantTypeRouter from './routes/plantTypeRoutes'
+import cors from 'cors'
+
 
 var app = express()
 app.use(logger('dev'))
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
@@ -24,4 +27,7 @@ app.use('/schedule', scheduleRouter)
 app.use('/plant', plantRouter)
 app.use('/soil', soilRouter)
 app.use('/plant_types', plantTypeRouter)
+app.use('/status', (req, res) => {
+    res.sendStatus(200)
+})
 export default app
