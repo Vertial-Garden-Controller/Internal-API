@@ -14,7 +14,7 @@ import ScheduleService from "../services/scheduleService"
 export default class ScheduleController {
   /**
    * Handles POST request to create a new schedule.
-   * days, start_time, and end_time, and garden_id
+   * days, start_time, and end_time, and email
    * are required fields to signup.
    * Calls schedule service to insert data into database
    * @param req
@@ -29,13 +29,13 @@ export default class ScheduleController {
       !newSchedule.start_time ||
       !newSchedule.end_time ||
       // !newSchedule.days ||
-      !newSchedule.garden_id
+      !newSchedule.email
     ) {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
         detail:
-          'New schedule requires days, start_time, and end_time, and garden_id',
+          'New schedule requires days, start_time, and end_time, and email',
       })
     }
 
@@ -155,13 +155,13 @@ export default class ScheduleController {
       !newSchedule.start_time ||
       !newSchedule.end_time ||
       !newSchedule.days ||
-      !newSchedule.garden_id
+      !newSchedule.email
     ) {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
         detail:
-          'New schedule requires days, start_time, and end_time, and garden_id',
+          'New schedule requires days, start_time, and end_time, and email',
       })
     }
 
