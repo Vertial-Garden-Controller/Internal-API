@@ -95,4 +95,31 @@ export default class UserService {
       return { error: ERROR_DB, detail: err.detail }
     }
   }
+
+  /**
+   * Queries database for all information pertaining to a user by
+   * the provided user_id.  If the user_id does not exist in the database,
+   * an error is returned.  If the database returns too many users,
+   * the function will error as well.
+   * @param user_id
+   * @returns user
+   */
+  static async getUserByEmail(email) {
+    try {
+      const selectQuery = `
+        SELECT * FROM users
+        WHERE email = $1;`
+      const selectParams = [email]
+      const { rows } = await send_query(selectQuery, selectParams)
+      return rows.length == 1
+        ? rows[0]
+        : {
+            error: 'Database Error',
+            detail: `No user found with email: ${email}`,
+          }
+    } catch (err) {
+      console.error(err.stack)
+      return { error: ERROR_DB, detail: err.detail }
+    }
+  }
 }

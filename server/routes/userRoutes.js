@@ -8,6 +8,8 @@ router.post('/signup', UserController.newUser)
 // login user
 router.post('/login', UserController.Login)
 // get user information
-router.get('/:user_id', UserController.getUserInfo)
+router.get('/', UserController.getUserInfo)
+// get user information
+router.get('/email', UserController.getUserByEmail)
 
 export default router

@@ -85,7 +85,7 @@ export default class UserController {
    * @returns res with json
    */
   static async getUserInfo(req, res) {
-    const user_id = parseInt(req.params.user_id)
+    const user_id = parseInt(req.query.user_id)
     if (user_id < 1 || isNaN(user_id)) {
       return res.status(400).json({
         success: false,
@@ -95,6 +95,38 @@ export default class UserController {
     }
 
     const user = await UserService.getUserInfo(user_id)
+    if (user.error) {
+      return res.status(500).json({
+        success: false,
+        error: user.error,
+        detail: user.detail,
+      })
+    }
+
+    return res.status(200).json({ success: true, user: user })
+  }
+
+  /**
+   * Handles GET requets for user information by user_id.
+   * User_id provided must be greater than zero and be a valid number,
+   * otherwise status 400.
+   * Res contains success status and user information upon success.
+   * @param req
+   * @param res
+   * @returns res with json
+   */
+  static async getUserByEmail(req, res) {
+    const email = req.query.email
+    console.log(email)
+    if (email.length < 1) {
+      return res.status(400).json({
+        success: false,
+        error: 'Request Error',
+        detail: 'Email provided is invalid',
+      })
+    }
+
+    const user = await UserService.getUserByEmail(email)
     if (user.error) {
       return res.status(500).json({
         success: false,
