@@ -7,7 +7,7 @@ export default class ScheduleService {
         INSERT INTO rules (
           start_time,
           end_time,
-          garden_id,
+          email,
           days
         ) VALUES (
           $1, $2, $3,
@@ -24,7 +24,7 @@ export default class ScheduleService {
       const insertParams = [
         schedule.start_time,
         schedule.end_time,
-        schedule.garden_id,
+        schedule.email,
         schedule.days.mon,
         schedule.days.tue,
         schedule.days.wed,
@@ -65,9 +65,8 @@ export default class ScheduleService {
   static async getAllSchedules(email) {
     try {
       const insertQuery = `
-        SELECT * FROM rules, gardens
-        WHERE gardens.garden_id = rules.garden_id
-        AND email = $1;`
+        SELECT * FROM rules
+        WHERE email = $1;`
       const insertParams = [
         email
       ]
@@ -86,7 +85,7 @@ export default class ScheduleService {
         SET
           start_time = $1,
           end_time = $2,
-          garden_id = $3,
+          email = $3,
           days = (
             $4,
             $5,
@@ -102,7 +101,7 @@ export default class ScheduleService {
       const insertParams = [
         schedule.start_time,
         schedule.end_time,
-        schedule.garden_id,
+        schedule.email,
         schedule.days.mon,
         schedule.days.tue,
         schedule.days.wed,

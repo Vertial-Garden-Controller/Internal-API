@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a277b1e6-804e-4a5c-b015-cdd9df5dfd55",
+		"_postman_id": "70f14d8f-55d9-479a-91a9-7a2e7ac8005f",
 		"name": "Smart Irrigation API Calls",
 		"description": "# Introduction\nManages information related to users' gardens\n\n# Overview\nThings that the developers should know about\n\n# Authentication\nWhat is the preferred way of using the API?\n\n# Error Codes\nWhat errors and status codes can a user expect?\n\n# Rate limit\nIs there a limit to the number of requests an user can send?",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -299,7 +299,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"start_time\": \"08:00:00\",\r\n    \"end_time\": \"13:30:00\",\r\n    \"garden_id\": 1,\r\n    \"days\": {\r\n        \"mon\": true,\r\n        \"tue\": true,\r\n        \"wed\": true,\r\n        \"thu\": true,\r\n        \"fri\": false,\r\n        \"sat\": false,\r\n        \"sun\": false\r\n    }\r\n}",
+					"raw": "{\r\n    \"start_time\": \"08:00:00\",\r\n    \"end_time\": \"13:30:00\",\r\n    \"email\": \"jbarringer1999@gmail.com\",\r\n    \"days\": {\r\n        \"mon\": true,\r\n        \"tue\": true,\r\n        \"wed\": true,\r\n        \"thu\": true,\r\n        \"fri\": false,\r\n        \"sat\": false,\r\n        \"sun\": false\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -325,19 +325,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:5001/schedule/:schedule_id",
+					"raw": "localhost:5001/schedule/?schedule_id=3",
 					"host": [
 						"localhost"
 					],
 					"port": "5001",
 					"path": [
 						"schedule",
-						":schedule_id"
+						""
 					],
-					"variable": [
+					"query": [
 						{
 							"key": "schedule_id",
-							"value": "1"
+							"value": "3"
 						}
 					]
 				}
@@ -350,7 +350,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:5001/schedule/user/:user_id",
+					"raw": "localhost:5001/schedule/user/?email=jbarringer1999@gmail.com",
 					"host": [
 						"localhost"
 					],
@@ -358,12 +358,12 @@
 					"path": [
 						"schedule",
 						"user",
-						":user_id"
+						""
 					],
-					"variable": [
+					"query": [
 						{
-							"key": "user_id",
-							"value": "1"
+							"key": "email",
+							"value": "jbarringer1999@gmail.com"
 						}
 					]
 				}
@@ -377,7 +377,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"start_time\": \"00:00:00\",\r\n    \"end_time\": \"13:30:00\",\r\n    \"garden_id\": 1,\r\n    \"days\": {\r\n        \"mon\": false,\r\n        \"tue\": false,\r\n        \"wed\": false,\r\n        \"thu\": false,\r\n        \"fri\": false,\r\n        \"sat\": false,\r\n        \"sun\": false\r\n    }\r\n}",
+					"raw": "{\r\n    \"start_time\": \"00:00:00\",\r\n    \"end_time\": \"13:30:00\",\r\n    \"email\": \"jbarringer1999@gmail.com\",\r\n    \"days\": {\r\n        \"mon\": false,\r\n        \"tue\": false,\r\n        \"wed\": false,\r\n        \"thu\": false,\r\n        \"fri\": false,\r\n        \"sat\": false,\r\n        \"sun\": false\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -385,16 +385,16 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:5001/schedule/:schedule_id",
+					"raw": "localhost:5001/schedule/?schedule_id=1",
 					"host": [
 						"localhost"
 					],
 					"port": "5001",
 					"path": [
 						"schedule",
-						":schedule_id"
+						""
 					],
-					"variable": [
+					"query": [
 						{
 							"key": "schedule_id",
 							"value": "1"
@@ -410,19 +410,19 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:5001/schedule/:schedule_id",
+					"raw": "localhost:5001/schedule/?schedule_id=8",
 					"host": [
 						"localhost"
 					],
 					"port": "5001",
 					"path": [
 						"schedule",
-						":schedule_id"
+						""
 					],
-					"variable": [
+					"query": [
 						{
 							"key": "schedule_id",
-							"value": "1"
+							"value": "8"
 						}
 					]
 				}
@@ -435,7 +435,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:5001/soil/?garden_id=1",
+					"raw": "localhost:5001/soil/?email=jbarringer1999@gmail.com",
 					"host": [
 						"localhost"
 					],
@@ -452,12 +452,12 @@
 						},
 						{
 							"key": "end_time",
-							"value": "\"2022-01-01\"",
+							"value": "\"2020-01-15\"",
 							"disabled": true
 						},
 						{
-							"key": "garden_id",
-							"value": "1"
+							"key": "email",
+							"value": "jbarringer1999@gmail.com"
 						}
 					]
 				}
@@ -510,8 +510,33 @@
 					"variable": [
 						{
 							"key": "user_id",
-							"value": "1",
-							"type": "string"
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user - get user by email",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5001/user/email/?email=jbarringer1999@gmail.com",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"user",
+						"email",
+						""
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "jbarringer1999@gmail.com"
 						}
 					]
 				}
@@ -606,6 +631,24 @@
 					"port": "5001",
 					"path": [
 						"plant_types"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5001/status",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"status"
 					]
 				}
 			},

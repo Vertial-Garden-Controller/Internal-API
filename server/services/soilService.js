@@ -1,14 +1,14 @@
 import { send_query, ERROR_DB } from '../db/index'
 
 export default class SoilService {
-  static async getSoilInfo(garden_id, start_time, end_time) {
+  static async getSoilInfo(email, start_time, end_time) {
     if(!start_time || !end_time) {
       try {
         const insertQuery = `
           SELECT * FROM sensor_data
-          WHERE garden_id = $1`
+          WHERE email = $1`
         const insertParams = [
-          garden_id
+          email
         ]
         const { rows } = await send_query(insertQuery, insertParams)
         return rows
@@ -20,11 +20,11 @@ export default class SoilService {
       try {
         const insertQuery = `
           SELECT * FROM sensor_data
-          WHERE garden_id = $1
+          WHERE email = $1
           AND date_created > $2
           AND date_created < $3`
         const insertParams = [
-          garden_id,
+          email,
           start_time,
           end_time
         ]

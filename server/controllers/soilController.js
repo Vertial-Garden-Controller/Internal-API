@@ -21,12 +21,13 @@ export default class SoilController {
    * @returns res with json
    */
   static async getSoilInfo(req, res) {
-    const garden_id = parseInt(req.query.garden_id)
-    if (garden_id < 1 || isNaN(garden_id)) {
+    const email = req.query.email
+    console.log(email)
+    if (email.length < 1) {
       return res.status(400).json({
         success: false,
         error: 'Request Error',
-        detail: 'Garden id provided is invalid',
+        detail: 'Email provided is invalid',
       })
     }
     let start_time = req.query.start_time
@@ -37,7 +38,7 @@ export default class SoilController {
     }
 
     // TODO: service for getSoilInfo
-    const sensor_data = await SoilService.getSoilInfo(garden_id, start_time, end_time)
+    const sensor_data = await SoilService.getSoilInfo(email, start_time, end_time)
     if (sensor_data.error) {
       return res.status(500).json({
         success: false,
