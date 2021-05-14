@@ -65,7 +65,6 @@ export default class ScheduleController {
    */
   static async getScheduleByID(req, res) {
     const schedule_id = parseInt(req.query.schedule_id)
-    console.log('shuit')
     if (schedule_id < 1 || isNaN(schedule_id)) {
       return res.status(400).json({
         success: false,
