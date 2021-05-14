@@ -80,6 +80,7 @@ export default class ScheduleService {
 
   static async updateSchedule(schedule_id, schedule) {
     try {
+      const date = new Date(Date.now())
       const insertQuery = `
         UPDATE rules
         SET
@@ -109,7 +110,7 @@ export default class ScheduleService {
         schedule.days.fri,
         schedule.days.sat,
         schedule.days.sun,
-        new Date().toISOString(),
+        date.toDateString(),
         schedule_id
       ]
       const { rows } = await send_query(insertQuery, insertParams)

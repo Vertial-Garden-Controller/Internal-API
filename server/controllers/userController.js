@@ -117,7 +117,6 @@ export default class UserController {
    */
   static async getUserByEmail(req, res) {
     const email = req.query.email
-    console.log(email)
     if (email.length < 1) {
       return res.status(400).json({
         success: false,
@@ -136,5 +135,42 @@ export default class UserController {
     }
 
     return res.status(200).json({ success: true, user: user })
+  }
+
+  
+
+  /**
+   * Handles GET requets for user information by user_id.
+   * User_id provided must be greater than zero and be a valid number,
+   * otherwise status 400.
+   * Res contains success status and user information upon success.
+   * @param req
+   * @param res
+   * @returns res with json
+   */
+   static async updateUserGarden(req, res) {
+    const email = req.query.email
+    const garden_size = parseInt(req.body.garden_size)
+    if (email.length < 1 || garden_size < 1 || isNaN(garden_size)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Request Error',
+        detail: 'Email provided is invalid',
+      })
+    }
+
+    const new_garden_size = await UserService.updateUserGarden(email, garden_size)
+    if (new_garden_size.error) {
+      return res.status(500).json({
+        success: false,
+        error: new_garden_size.error,
+        detail: new_garden_size.detail,
+      })
+    }
+
+    return res.status(201).json({
+      success: true,
+      garden_size: new_garden_size
+    })
   }
 }
