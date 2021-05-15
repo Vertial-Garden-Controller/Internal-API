@@ -114,7 +114,9 @@ export default class ScheduleController {
         detail: schedules.detail,
       })
     }
-    const precip = schedules[0].precip
+    const precip = schedules[0]
+      ? schedules[0].precip
+      : 0
     for (const schedule of schedules) {
       delete schedule.precip
     }
