@@ -13,5 +13,7 @@ router.get('/', UserController.getUserInfo)
 router.get('/email', UserController.getUserByEmail)
 // update user's garden size
 router.put('/updateGarden', UserController.updateUserGarden)
+// update estimated precip for user
+router.put('/precip', UserController.updatePrecip)
 
 export default router

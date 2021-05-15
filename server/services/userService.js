@@ -22,9 +22,10 @@ export default class UserService {
           middlename,
           email,
           password,
-          garden_size
+          garden_size,
+          precip
         ) VALUES (
-          $1, $2, $3, $4, $5, $6
+          $1, $2, $3, $4, $5, $6, $7
         ) RETURNING user_id;`
       const insertParams = [
         user.firstname,
@@ -32,7 +33,8 @@ export default class UserService {
         user.middlename,
         user.email,
         user.password,
-        user.garden_size
+        user.garden_size,
+        0
       ]
 
       const { rows } = await send_query(insertQuery, insertParams)
@@ -141,6 +143,35 @@ export default class UserService {
         WHERE email = $2
         returning garden_size;`
       const queryParameters = [garden_size, email, date.toDateString()]
+      const { rows } = await send_query(queryString, queryParameters)
+      return rows.length == 1
+        ? rows[0]
+        : {
+          error: 'Database Error',
+          detail: `No user found with email: ${email}`,
+        }
+    } catch (err) {
+      console.error(err.stack)
+      return { error: ERROR_DB, detail: err.detail }
+    }
+  }
+
+  /**
+   * updates the garden_size column for a given user
+   * @param {*} email 
+   * @param {*} garden_size 
+   * @returns 
+   */
+  static async updatePrecip(email, precip) {
+    try {
+      const date = new Date(Date.now())
+      const queryString = `
+        UPDATE users
+        SET precip = $1,
+        last_modified = $3
+        WHERE email = $2
+        returning precip;`
+      const queryParameters = [precip, email, date.toDateString()]
       const { rows } = await send_query(queryString, queryParameters)
       return rows.length == 1
         ? rows[0]
