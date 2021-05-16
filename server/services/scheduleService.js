@@ -65,8 +65,13 @@ export default class ScheduleService {
   static async getAllSchedules(email) {
     try {
       const insertQuery = `
-        SELECT * FROM rules
-        WHERE email = $1;`
+        SELECT r.*, u.precip
+        FROM
+          rules as r,
+          users as u
+        WHERE
+          r.email = u.email AND
+          r.email = $1;`
       const insertParams = [
         email
       ]

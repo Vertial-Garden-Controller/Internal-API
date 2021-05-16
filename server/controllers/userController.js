@@ -173,4 +173,42 @@ export default class UserController {
       garden_size: new_garden_size
     })
   }
+
+  
+
+  /**
+   * Handles GET requets for user information by user_id.
+   * User_id provided must be greater than zero and be a valid number,
+   * otherwise status 400.
+   * Res contains success status and user information upon success.
+   * @param req
+   * @param res
+   * @returns res with json
+   */
+   static async updatePrecip(req, res) {
+    const email = req.query.email
+    const precip = parseFloat(req.body.precip)
+    console.log(precip)
+    if (email.length < 1 || precip < 0 || isNaN(precip)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Request Error',
+        detail: 'Email provided is invalid',
+      })
+    }
+
+    const new_precip = await UserService.updatePrecip(email, precip)
+    if (new_precip.error) {
+      return res.status(500).json({
+        success: false,
+        error: new_precip.error,
+        detail: new_precip.detail,
+      })
+    }
+
+    return res.status(201).json({
+      success: true,
+      precip: new_precip
+    })
+  }
 }
