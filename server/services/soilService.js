@@ -6,7 +6,8 @@ export default class SoilService {
       try {
         const insertQuery = `
           SELECT * FROM sensor_data
-          WHERE email = $1`
+          WHERE email = $1
+          ORDER BY date_created ASC;`
         const insertParams = [
           email
         ]
@@ -22,7 +23,8 @@ export default class SoilService {
           SELECT * FROM sensor_data
           WHERE email = $1
           AND date_created > $2
-          AND date_created < $3`
+          AND date_created < $3
+          ORDER BY date_created ASC;`
         const insertParams = [
           email,
           start_time,
