@@ -71,7 +71,8 @@ export default class ScheduleService {
           users as u
         WHERE
           r.email = u.email AND
-          r.email = $1;`
+          r.email = $1
+        ORDER BY r.rule_id ASC;`
       const insertParams = [
         email
       ]
